@@ -186,41 +186,35 @@ class UserModel extends BaseModel {
         }
     }
 
+    public static function dodajProizvodKompaniji($idComp,$naziv,$opis,$vrsta_proizvoda_sif,$cena){
+        $SQL = "SELECT proizvod_sif FROM proizvod WHERE naziv = '?' AND opis = '?' AND vrsta_proizvoda_sif = ?";
+        $prep = DataBase::getInstance()->prepare($SQL);
+        $res = $prep->execute([$naziv,$opis,$vrsta_proizvoda_sif]);
+        $nasao = false;
+        $id = null;
+        if($res){
+            $p = $prep->fetch(PDO::FETCH_OBJ);
+            if($p){
+                $id = $p->proizvod_sif;
+                $nasao = true;
+            }
+        }
+        if(!nasao){
+            $SQL = "INSERT INTO proizvod (naziv,opis,vrsta_proizvoda_sif) VALUES (?.?,?)";
+            $pdo = DataBase::getInstance();
+            $prep = $pdo->prepare($SQL);
+            $res = $prep->execute([$naziv,$opis,$vrsta_proizvoda_sif]);
+            if($res){
+                $id = $pdo->lastInsertId();
+            }
+        }
+        if($id != null){
+            $SQL = "INSERT INTO nudi_proizvod (cena,proizvod_sif,preduzece_sif) VALUES (?,?,?)";
+            $prep = DataBase::getInstance()->prepare($SQL);
+            $res = $prep->execute([$cena,$id,$idComp]);
+
+        }
+    }
+    
+    
 }
-// $res = $prep->execute([$data['pun_naziv'],$data['kratak_naziv'],$data['mat_br'],$data['pib'],$data['sajt_link'],$data['telefon'],$data['posenbne_napomene'],$data['preduzetnik_sif'],0,$data['logotip'],$data['kratak_opis'],$main_loc_id,$data['glavna_delatnost_sif']]);
-//             if($res){
-//                 $company_id = $pdo->lastInsertId();
-
-//                 $SQL = "INSERT INTO lokacija(opstina_sif, adresa, kordinata_duzina, kordinata_sirina, preduzece_sif) VALUES (?,?,?,?,?)";
-//                 foreach($data['lokacije'] as $lokacija){
-//                     $prep = DataBase::getInstance()->prepare($SQL);
-//                     $res = $prep->execute([$lokacija['opstina_sif'],$lokacija['adresa'],$lokacija['kordinata_duzina'],$lokacija['kordinata_sirina'],$company_id]);
-//                 }
-
-//                 $SQL = "INSERT INTO preduzece_delatnost (preduzece_sif,delatnost_sif) VALUES (?,?)";
-//                 foreach($data['delatnosti'] as $delatnost){
-//                     $prep = DataBase::getInstance()->prepare($SQL);
-//                     $res = $prep->execute([$company_id,$delatnost]);
-//                 }
-
-//                 $SQL = "INSERT INTO telefon (telefon,preduzece_sif) VALUES (?,?)";
-//                 foreach($data['telefoni'] as $t){
-//                     $prep = DataBase::getInstance()->prepare($SQL);
-//                     $res = $prep->execute([$t,$company_id]);
-//                 }
-                
-//                 $SQL = "INSERT INTO slike (slika,preduzece_sif) VALUES (?,?)";
-//                 foreach($data['slike'] as $s){
-//                     $prep = DataBase::getInstance()->prepare($SQL);
-//                     $res = $prep->execute([$s,$company_id]);
-//                 }
-
-//                 $SQL = "INSERT INTO radno_vreme(preduzece_sif,'day',otvara,zatvara) VALUES(?,?,?,?)";
-//                 foreach($data['radno_vreme'] as $rv){
-//                     $prep = DataBase::getIntance()->prepare($SQL);
-//                     $res = $prep->execute([$company_id,$rv['day'],$rv['otvara'],$rv['zatvara']]);
-//                 }
-
-//             }else{
-//                 deleteLocation($main_loc_id);
-//             }

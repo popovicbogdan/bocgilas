@@ -102,14 +102,26 @@ class UserController extends Controller {
     public function otvoriProizvod(){
         if(!Session::exists('inserting_comp')){
             Misc::redirect('dodajKompaniju');
+        }else{
+            $proizvodi = BaseModel::getProductTypes();
+            $this->setData('proizvodi',$proizvodi);
         }
     }
-
+    
     public function dodajProizvod() {
         if(!Session::exists('inserting_comp')){
             Misc::redirect('dodajKompaniju');
+        }else if (!empty($_POST)){
+                $id = Session::get('inserting_comp');
+                $naziv = filter_input(INPUT_POST, '_naziv', FILTER_SANITIZE_STRING);
+                $opis = filter_input(INPUT_POST, '_opis', FILTER_SANITIZE_STRING);
+                $vrsta_proizvoda_sif = filter_input(INPUT_POST, '_proizvod', FILTER_SANITIZE_STRING);
+                $cena = filter_input(INPUT_POST, '_cena', FILTER_SANITIZE_STRING);
+                UserModel::dodajProizvodKompaniji($id,$naziv,$opis,$vrsta_proizvoda_sif,$cena);
+                Misc::redirect('novoPreduzece');
+        }else{
+            Misc::redirect('dodajKompaniju');
         }
-        //TODO
     }
     
     public function otvoriTelefon(){

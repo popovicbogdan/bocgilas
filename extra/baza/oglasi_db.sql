@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2018 at 06:35 PM
+-- Generation Time: Sep 12, 2018 at 10:17 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -1524,7 +1524,13 @@ INSERT INTO `lokacija` (`lokacija_sif`, `opstina_sif`, `adresa`, `kordinata_duzi
 (23, 6, 'Nemanjina 4', '77788', '7887', NULL),
 (24, 1, 'aaa', '3434', '434', NULL),
 (25, 5, 'Lješka 58', '6766', '66776', NULL),
-(26, 7, 'Paunova 30/13', '787877', '77887', NULL);
+(26, 7, 'Paunova 30/13', '787877', '77887', NULL),
+(27, 4, 'resavska 6', '2311312', '22313', NULL),
+(28, 1, 'test 1b', '23144321', '3214132', 16),
+(29, 3, 'test 1b', '231312', '23132132', NULL),
+(30, 1, 'test 1b', '231312', '23132132', NULL),
+(31, 5, 'testing', '123', '123', NULL),
+(32, 3, 'poba', '123', '123', NULL);
 
 -- --------------------------------------------------------
 
@@ -1603,7 +1609,19 @@ INSERT INTO `preduzece` (`preduzece_sif`, `pun_naziv`, `kratak_naziv`, `mat_br`,
 (12, 'Cvecara Kuca Cveca', 'Kuca Cveca', '90999', '00990', 'www.kucacveca.rs', '062/8227-370', '&#34;Ku?a cve?a&#34; uvek daje sve od sebe da svaki cvet u buketu za vaše voljene bude savršen, da buket uvek bude svež i lep kao i da uvek stigne na vreme.', 4, 1, '12.jpg', 'Izra?ujemo bukete po želji za kancelarije, agencije, ordinacije i ostale poslovne prostore, restorane, kafi?e, klubove, ro?endane, krštenja, promocije, proslave godišnjica, razne bukete za stambene prostore..', 23, 2437),
 (13, 'proba', 'proba', '222', '222', 'proba.com', 'probaa', 'proba', 4, 0, '5.jpg', 'probaaa', 24, 2718),
 (14, 'Trubina DOO', 'Agregati Beograd', '555567', '76555', 'www.turbina-group.com', '063/276-956', ' Preduze?e Turbina je osnovano 1990 godine i uspešno se bavimo proizvodnjom, prodajom, montažom servisiranjem i održavanjem velikih agregatskih postrojenja.', 4, 1, '13.jpg', '30 godina iskustva u ovom poslu garantuje Vam kvalitet i pouzdanost koju nudimo za naše proizvode i usluge.', 25, 2056),
-(15, 'Foto Luka', 'Fotografske radnje Beograd', '555665', '6767676', 'www.fotoluka.com', '069/266-33-22', ' NOVO JASTUK SA VAŠIM SLIKAMA - CENA 900DIN', 4, 1, '14.jpg', '* POŠALJITE SLIKE OD KU?E PREKO OBRAZCA SA NAŠEM SAJTU    - besplatna dostava na ku?nu adresu * DIGITALNA IZRADA FOTOGRAFIJA SA SVIH MEDIJA * IZRADA FOTOGRAFIJA SA MOBILNIH TELEFONA * FOTOGRAFIJE ZA LICNA DOKUMENTA ZA 5 MINUTA * ŠTAMPANJE NA FOTO I MAGI?NIM ŠOLJAMA * RADIMO PUZZLE A4 /120 DELOVA/ I SRCE /A5 75 DELOVA/ * MAJCE SA VAŠIM LIKOM...', 26, 2812);
+(15, 'Foto Luka', 'Fotografske radnje Beograd', '555665', '6767676', 'www.fotoluka.com', '069/266-33-22', ' NOVO JASTUK SA VAŠIM SLIKAMA - CENA 900DIN', 4, 1, '14.jpg', '* POŠALJITE SLIKE OD KU?E PREKO OBRAZCA SA NAŠEM SAJTU    - besplatna dostava na ku?nu adresu * DIGITALNA IZRADA FOTOGRAFIJA SA SVIH MEDIJA * IZRADA FOTOGRAFIJA SA MOBILNIH TELEFONA * FOTOGRAFIJE ZA LICNA DOKUMENTA ZA 5 MINUTA * ŠTAMPANJE NA FOTO I MAGI?NIM ŠOLJAMA * RADIMO PUZZLE A4 /120 DELOVA/ I SRCE /A5 75 DELOVA/ * MAJCE SA VAŠIM LIKOM...', 26, 2812),
+(16, 'test2', 'testiranje sajta', '132231231231', '1231313', 'blabla.com', '0123231313', 'nista nista', 4, 0, 'pogon.jpg', 'vrsimo proizvodnju ulja i masti', 27, 1710),
+(17, 'aaa', 'bbbb', 'ccc', '123', '123', '123', '123', 4, 0, 'pogon.jpg', '2134132', 29, 2718),
+(19, 'testing', 'testing', 'testing', 'testing', 'testing', 'testing', 'testing', 4, 0, 'pogon.jpg', 'testing', 31, 2717),
+(20, 'poba', 'poba', 'poba', 'poba', 'poba', 'poba', 'poba', 4, 0, 'pogon.jpg', 'poba', 32, 2718);
+
+--
+-- Triggers `preduzece`
+--
+DELIMITER $$
+CREATE TRIGGER `PendingStatus` BEFORE INSERT ON `preduzece` FOR EACH ROW SET NEW.STATUS = 0
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -1725,7 +1743,14 @@ INSERT INTO `radno_vreme` (`readno_vreme_sif`, `preduzece_sif`, `day`, `otvara`,
 (49, 15, 1, 8, 20),
 (50, 15, 2, 7, 20),
 (51, 15, 3, 7, 20),
-(52, 15, 4, 8, 20);
+(52, 15, 4, 8, 20),
+(53, 16, 0, 0, 0),
+(54, 16, 1, 13, 20),
+(55, 16, 2, 8, 20),
+(56, 17, 0, 1, 21),
+(57, 19, 0, 1, 15),
+(58, 19, 1, 2, 21),
+(59, 20, 0, 1, 21);
 
 -- --------------------------------------------------------
 
@@ -1769,6 +1794,14 @@ CREATE TABLE `telefon` (
   `telefon` varchar(100) NOT NULL,
   `preduzece_sif` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `telefon`
+--
+
+INSERT INTO `telefon` (`telefon_sif`, `telefon`, `preduzece_sif`) VALUES
+(5, '3424234234', 16),
+(6, '', 16);
 
 -- --------------------------------------------------------
 
@@ -1984,7 +2017,7 @@ ALTER TABLE `grad`
 -- AUTO_INCREMENT for table `lokacija`
 --
 ALTER TABLE `lokacija`
-  MODIFY `lokacija_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `lokacija_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `nudi_proizvod`
@@ -2002,7 +2035,7 @@ ALTER TABLE `opstina`
 -- AUTO_INCREMENT for table `preduzece`
 --
 ALTER TABLE `preduzece`
-  MODIFY `preduzece_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `preduzece_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `preduzece_delatnost`
@@ -2026,7 +2059,7 @@ ALTER TABLE `proizvod`
 -- AUTO_INCREMENT for table `radno_vreme`
 --
 ALTER TABLE `radno_vreme`
-  MODIFY `readno_vreme_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `readno_vreme_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `regija`
@@ -2044,7 +2077,7 @@ ALTER TABLE `slike`
 -- AUTO_INCREMENT for table `telefon`
 --
 ALTER TABLE `telefon`
-  MODIFY `telefon_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `telefon_sif` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `vrsta_proizvoda`

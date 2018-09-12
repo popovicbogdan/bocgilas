@@ -6,6 +6,7 @@
             <a href="<?php echo Configuration::BASE_URL ?>dodajDelatnost" class="btn btn-info col-4 mr-2">Dodaj delatnost</a>
             <a href="<?php echo Configuration::BASE_URL ?>dodajLokaciju" class="btn btn-info col-4 mr-2">Dodaj lokacije</a>
             <a href="<?php echo Configuration::BASE_URL ?>dodajTelefon" class="btn btn-info col-4 mr-2">Dodaj telefon</a>
+            <a href="<?php echo Configuration::BASE_URL ?>dodajProizvod" class="btn btn-info col-4 mr-2">Dodaj proizvod</a>
             <a href="#" class="btn btn-success col-4">ZAVRSI</a>
           </div>
         </div>
