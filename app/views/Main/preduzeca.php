@@ -37,19 +37,7 @@
                     <select class="form-control" name="_opstina" id="_filter_opstina">
                     <option value="" selected="selected">Bilo koji</option>
                 </select>
-                </div>
-               <label for="_filter_vrstaProizvoda">Vrsta proizvoda</label>
-                <select id="_filter_vrstaProizvoda" name="_proizvod" class="demo-default selectized" tabindex="-1" style="display: none;">
-                  <option value="" selected="selected">Bilo koji</option>
-                    <?php
-                        if (is_array($DATA['proizvodi']))
-                        foreach ($DATA['proizvodi'] as $proizvodi):
-                    ?>
-                    <option value="<?php echo $proizvodi->vrsta_proizvoda_sif ?>">
-                        <?php echo $proizvodi->naziv ?>
-                    </option>
-                    <?php endforeach; ?>
-              </select>                
+                </div>               
                 <div class="form-group spec-form">
                     <label for="_filter_kompanija">Kompanija</label>
                     <input type="search" name="_komp_ime" class="form-control" id="_filter_kompanija">
@@ -84,6 +72,18 @@
                     <label for="_filter_vreme">Vreme</label>
                     <input type="number" id="_filter_vreme" min="0" max="24" name="_sat" class="form-control" placeholder="Radno vreme" >
                 </div>
+               <label for="_filter_vrstaProizvoda">Vrsta proizvoda</label>
+                <select id="_filter_vrstaProizvoda" name="_proizvod" class="demo-default selectized" tabindex="-1" style="display: none;">
+                  <option value="" selected="selected">Bilo koji</option>
+                    <?php
+                        if (is_array($DATA['proizvodi']))
+                        foreach ($DATA['proizvodi'] as $proizvodi):
+                    ?>
+                    <option value="<?php echo $proizvodi->vrsta_proizvoda_sif ?>">
+                        <?php echo $proizvodi->naziv ?>
+                    </option>
+                    <?php endforeach; ?>
+              </select> 
                 <button class="btn btn-info" type="submit">Filtriraj</button>
                 </form>
           </div>
